@@ -1,0 +1,2229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>5100 SW 86th St — Ponce Davis Estate | $6,999,000</title>
+  <meta name="description" content="A legendary Mediterranean estate on one of Miami's most coveted streets. 6 bedrooms, 5 baths, 6,580 sq ft, dual heated pools on a 29,403 SF lot in Ponce Davis.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0D2B4E;
+      --navy-deep: #091e38;
+      --gold: #B8966A;
+      --gold-light: #D4B48A;
+      --cream: #D8CEBC;
+      --cream-dark: #C9BDA8;
+      --bg-image: url('wwfcmsprodimagesNational_Park_of_.width-800.format-webp copy.jpg');
+      --stone: #9E8E7A;
+      --white: #FFFFFF;
+      --text: #1C1C1C;
+      --text-muted: #5A5248;
+    }
+
+    html { scroll-behavior: auto; } /* smooth scroll handled per-click via JS to avoid interfering with page-load scroll reset */
+
+    body {
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      color: var(--text);
+      background: var(--cream);
+      overflow-x: hidden;
+    }
+
+    /* Fixed background layer — replaces background-attachment:fixed which breaks on zoom */
+    #bgLayer {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background: var(--bg-image) center center / cover no-repeat;
+      pointer-events: none;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 24px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.4s ease, padding 0.4s ease, backdrop-filter 0.4s ease;
+    }
+
+    nav.scrolled {
+      background: rgba(9, 30, 56, 0.96);
+      backdrop-filter: blur(12px);
+      padding: 16px 48px;
+      border-bottom: 1px solid rgba(184, 150, 106, 0.2);
+    }
+
+    .nav-wordmark {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-size: 15px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--white);
+      text-decoration: none;
+      line-height: 1.3;
+    }
+
+    .nav-wordmark span {
+      display: block;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      color: var(--gold-light);
+      font-weight: 300;
+      margin-top: 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--gold-light); }
+
+    .nav-cta {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--navy);
+      background: var(--gold);
+      padding: 11px 24px;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+      cursor: pointer;
+    }
+
+    .nav-cta:hover { background: var(--gold-light); }
+
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+
+    .nav-hamburger span {
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--white);
+      transition: all 0.3s;
+    }
+
+    /* ── VINE OVERLAY ── */
+    .vine-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    /* Vine strands: JS spring physics drives transform via element.style.transform */
+    .vine-strand {
+      transform-box: fill-box;
+      transform-origin: 50% 0%;
+      /* No CSS transform here — JS sets it on every rAF tick */
+    }
+
+    /* ── SMOOTH SCROLL HERO ── */
+    .ssh-wrapper {
+      position: relative;
+      width: 100%;
+      /* height = scrollHeight (1500px) + 100vh, set inline via JS */
+    }
+
+    .ssh-sticky {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      width: 100%;
+      background: #000;
+      z-index: 3;
+      /* clip-path animated via JS */
+      will-change: clip-path;
+    }
+
+    .ssh-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://img-v2.gtsstatic.net/reno/imagereader.aspx?url=https%3A%2F%2Fm.sothebysrealty.com%2F1194i215%2F4r8wntcp9ehcmjj0y80p4efhs3i215&w=2400&q=90&option=N&permitphotoenlargement=false');
+      background-position: center 30%;
+      background-repeat: no-repeat;
+      /* backgroundSize animated via JS */
+      will-change: background-size;
+    }
+
+    .ssh-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(9, 30, 56, 0.38);
+      pointer-events: none;
+    }
+
+    /* Text layer: sticky on top, independent of clip-path */
+    .ssh-text-layer {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      margin-top: -100vh;    /* pulls it up to overlap the sticky bg */
+      z-index: 10;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .hero-content {
+      pointer-events: all;
+      position: relative;
+      z-index: 2;
+      padding: 0 48px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 16px;
+    }
+
+    .hero-headline {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(48px, 6vw, 88px);
+      line-height: 1.05;
+      color: var(--white);
+      margin-bottom: 10px;
+      max-width: 680px;
+    }
+
+    .hero-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(18px, 2.5vw, 28px);
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 40px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--navy-deep);
+      background: var(--gold);
+      padding: 16px 36px;
+      text-decoration: none;
+      transition: background 0.2s;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover { background: var(--gold-light); }
+
+    .btn-outline {
+      display: inline-block;
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--white);
+      border: 1px solid rgba(255,255,255,0.5);
+      padding: 15px 36px;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+      cursor: pointer;
+    }
+
+    .btn-outline:hover { border-color: var(--gold-light); color: var(--gold-light); }
+
+    .hero-scroll {
+      position: fixed;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .hero-scroll span {
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      writing-mode: vertical-rl;
+    }
+
+    .hero-scroll-line {
+      width: 1px;
+      height: 60px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.5), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.4; transform: scaleY(1); }
+      50% { opacity: 1; transform: scaleY(0.6); }
+    }
+
+    /* ── STATS BAR ── */
+    .stats-bar {
+      background: var(--navy);
+      padding: 0 80px;
+      display: flex;
+      align-items: stretch;
+      border-bottom: 1px solid rgba(184, 150, 106, 0.25);
+    }
+
+    .stat-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 28px 16px;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      gap: 5px;
+    }
+
+    .stat-item:last-child { border-right: none; }
+
+    .stat-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 500;
+      font-size: 26px;
+      color: var(--white);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 9px;
+      font-weight: 400;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    /* ── SECTIONS ── */
+    section { position: relative; }
+
+    .section-inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 80px;
+    }
+
+    .section-eyebrow {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(36px, 4.5vw, 60px);
+      line-height: 1.1;
+      color: var(--navy);
+    }
+
+    .section-title em {
+      font-style: italic;
+      color: var(--stone);
+    }
+
+    .divider {
+      width: 48px;
+      height: 1px;
+      background: var(--gold);
+      margin: 24px 0;
+    }
+
+    .section-body {
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 1.85;
+      color: var(--text-muted);
+      max-width: 640px;
+    }
+
+    /* ── OVERVIEW ── */
+    #overview {
+      background: var(--cream);
+      padding: 120px 0;
+    }
+
+    .overview-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .overview-image {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      display: block;
+    }
+
+    .overview-text {
+      padding-top: 40px;
+    }
+
+    .overview-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 42px;
+      color: var(--navy);
+      margin-top: 32px;
+      letter-spacing: -0.01em;
+    }
+
+    .overview-price span {
+      font-size: 16px;
+      letter-spacing: 0.1em;
+      color: var(--stone);
+      font-weight: 300;
+      display: block;
+      margin-bottom: 4px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      margin-top: 48px;
+      border-top: 1px solid var(--cream-dark);
+    }
+
+    .detail-item {
+      padding: 16px 0;
+      border-bottom: 1px solid var(--cream-dark);
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .detail-item:nth-child(odd) { padding-right: 24px; border-right: 1px solid var(--cream-dark); }
+    .detail-item:nth-child(even) { padding-left: 24px; }
+
+    .detail-key {
+      font-size: 9px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 400;
+    }
+
+    .detail-val {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--navy);
+    }
+
+    /* ── POOL SECTION ── */
+    #pool {
+      background: var(--navy-deep);
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .pool-hero {
+      width: 100%;
+      height: 70vh;
+      min-height: 500px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pool-hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    .pool-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 40%, rgba(9, 30, 56, 0.95) 100%);
+    }
+
+    .pool-text-block {
+      padding: 72px 80px;
+      max-width: 1320px;
+      margin: 0 auto;
+    }
+
+    .pool-text-block .section-eyebrow { color: var(--gold); }
+    .pool-text-block .section-title { color: var(--white); }
+    .pool-text-block .section-body { color: rgba(255,255,255,0.65); }
+
+    .pool-gallery {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 4px;
+      margin-top: 4px;
+    }
+
+    .pool-gallery img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      display: block;
+      cursor: pointer;
+      transition: opacity 0.25s;
+    }
+
+    .pool-gallery img:hover { opacity: 0.8; }
+
+    /* ── INTERIOR ── */
+    #interior {
+      background: var(--cream);
+      padding: 120px 0 0;
+    }
+
+    .interior-intro {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: end;
+      margin-bottom: 72px;
+    }
+
+    .interior-grid {
+      display: grid;
+      grid-template-columns: 7fr 3fr 4fr 4fr;
+      grid-template-rows: 420px 340px;
+      gap: 4px;
+    }
+
+    .interior-grid-item {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .interior-grid-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    /* Bento layout — 4 columns, 2 rows */
+    .interior-grid-item:nth-child(1) { grid-column: 1 / 2; grid-row: 1 / 3; } /* foyer: tall left */
+    .interior-grid-item:nth-child(2) { grid-column: 2 / 4; grid-row: 1; }     /* living room: top middle */
+    .interior-grid-item:nth-child(3) { grid-column: 4 / 5; grid-row: 1; }     /* kitchen: top right */
+    .interior-grid-item:nth-child(4) { grid-column: 2 / 3; grid-row: 2; }     /* breakfast nook: bottom col 2 */
+    .interior-grid-item:nth-child(5) { grid-column: 3 / 4; grid-row: 2; }     /* sunroom: bottom col 3 */
+    .interior-grid-item:nth-child(6) { grid-column: 4 / 5; grid-row: 2; }     /* dressing room: bottom right */
+
+    .interior-grid-item:hover img { transform: scale(1.04); }
+
+    .interior-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 16px 20px;
+      background: linear-gradient(to top, rgba(9,30,56,0.75), transparent);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.85);
+      font-weight: 400;
+      transform: translateY(4px);
+      opacity: 0;
+      transition: all 0.3s;
+    }
+
+    .interior-grid-item:hover .interior-caption {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── FEATURE STRIP ── */
+    .feature-strip {
+      background: var(--cream-dark);
+      padding: 72px 80px;
+    }
+
+    .feature-strip-inner {
+      max-width: 1320px;
+      margin: 0 auto;
+    }
+
+    .feature-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      margin-top: 48px;
+    }
+
+    .feature-col-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--navy);
+      margin-bottom: 20px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--gold);
+    }
+
+    .feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .feature-list li {
+      font-size: 13.5px;
+      font-weight: 300;
+      color: var(--text-muted);
+      line-height: 1.6;
+      padding-left: 16px;
+      position: relative;
+    }
+
+    .feature-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 9px;
+      width: 5px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    /* ── BEDROOMS ── */
+    /* ── ROOM SELECTOR ── */
+    .room-selector-wrap {
+      width: 100%;
+      padding: 0 0 80px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .room-selector {
+      display: flex;
+      width: 100%;
+      max-width: 1280px;
+      height: 480px;
+      overflow: hidden;
+    }
+
+    .room-panel {
+      position: relative;
+      flex: 1 1 0%;
+      background-size: cover;
+      background-position: center;
+      cursor: pointer;
+      border: 2px solid #1a1a1a;
+      transition: flex 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+                  background-size 0.7s ease,
+                  border-color 0.3s ease,
+                  box-shadow 0.4s ease;
+      overflow: hidden;
+      min-width: 52px;
+    }
+
+    .room-panel.active {
+      flex: 7 1 0%;
+      border-color: rgba(184,150,106,0.5);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+
+    .room-shadow {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.1) 50%, transparent 100%);
+      transition: opacity 0.5s ease;
+    }
+
+    .room-panel:not(.active) .room-shadow {
+      background: rgba(0,0,0,0.45);
+    }
+
+    .room-label {
+      position: absolute;
+      bottom: 20px;
+      left: 0;
+      right: 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 16px;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .room-icon {
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(20,20,20,0.8);
+      backdrop-filter: blur(8px);
+      border: 1.5px solid rgba(255,255,255,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .room-info {
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .room-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-weight: 500;
+      color: #fff;
+      opacity: 0;
+      transform: translateX(20px);
+      transition: opacity 0.5s ease 0.15s, transform 0.5s ease 0.15s;
+    }
+
+    .room-sub {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      color: rgba(255,255,255,0.7);
+      opacity: 0;
+      transform: translateX(20px);
+      transition: opacity 0.5s ease 0.22s, transform 0.5s ease 0.22s;
+    }
+
+    .room-panel.active .room-title,
+    .room-panel.active .room-sub {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    #bedrooms {
+      background: var(--white);
+      padding: 120px 0;
+    }
+
+    .bedroom-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .bedroom-text { padding-top: 20px; }
+
+    .bedroom-gallery {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px;
+    }
+
+    .bedroom-gallery img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      display: block;
+      cursor: pointer;
+      transition: opacity 0.25s;
+    }
+
+    .bedroom-gallery img:hover { opacity: 0.88; }
+
+    .bedroom-gallery .featured {
+      grid-column: span 2;
+      aspect-ratio: 16/9;
+    }
+
+    /* ── FULL GALLERY ── */
+    #gallery {
+      background: var(--navy);
+      padding: 100px 0;
+    }
+
+    #gallery .section-title { color: var(--white); }
+    #gallery .section-eyebrow { color: var(--gold); }
+    #gallery .divider { background: var(--gold); }
+
+    .gallery-header {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 80px 48px;
+    }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 3px;
+      padding: 0 80px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .photo-grid-item {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .photo-grid-item img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease, opacity 0.25s;
+    }
+
+    .photo-grid-item:hover img { transform: scale(1.05); opacity: 0.85; }
+
+    .photo-number {
+      position: absolute;
+      bottom: 8px;
+      right: 10px;
+      font-size: 9px;
+      color: rgba(255,255,255,0.5);
+      font-weight: 300;
+      letter-spacing: 0.1em;
+      pointer-events: none;
+    }
+
+    /* ── NEIGHBORHOOD ── */
+    #neighborhood {
+      background: var(--cream);
+      padding: 120px 0;
+    }
+
+    .neighborhood-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .neighborhood-images {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px;
+    }
+
+    .neighborhood-images img {
+      width: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .neighborhood-images img:first-child {
+      grid-column: span 2;
+      aspect-ratio: 16/9;
+    }
+
+    .neighborhood-images img:not(:first-child) {
+      aspect-ratio: 4/3;
+    }
+
+    .proximity-list {
+      margin-top: 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .proximity-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 13.5px;
+      font-weight: 300;
+      color: var(--text-muted);
+    }
+
+    .proximity-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: var(--navy-deep);
+      padding: 120px 0;
+    }
+
+    .contact-inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 80px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .contact-text .section-title { color: var(--white); }
+    .contact-text .section-eyebrow { color: var(--gold); }
+    .contact-text .divider { background: var(--gold); }
+    .contact-text .section-body { color: rgba(255,255,255,0.6); }
+
+    .agent-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .agent-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(184,150,106,0.2);
+      padding: 28px 32px;
+    }
+
+    .agent-brokerage {
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .agent-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px;
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+
+    .agent-phone {
+      font-size: 13px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 20px;
+    }
+
+    .btn-cta-block {
+      display: inline-block;
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--navy-deep);
+      background: var(--gold);
+      padding: 14px 28px;
+      text-decoration: none;
+      transition: background 0.2s;
+      cursor: pointer;
+    }
+
+    .btn-cta-block:hover { background: var(--gold-light); }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-field label {
+      font-size: 9px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 400;
+    }
+
+    .form-field input,
+    .form-field textarea {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 300;
+      padding: 12px 16px;
+      outline: none;
+      transition: border-color 0.2s;
+      resize: none;
+    }
+
+    .form-field input:focus,
+    .form-field textarea:focus {
+      border-color: rgba(184,150,106,0.6);
+    }
+
+    .form-field input::placeholder,
+    .form-field textarea::placeholder {
+      color: rgba(255,255,255,0.25);
+    }
+
+    .form-submit {
+      background: var(--gold);
+      color: var(--navy-deep);
+      border: none;
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      padding: 16px 32px;
+      cursor: pointer;
+      transition: background 0.2s;
+      align-self: flex-start;
+      margin-top: 6px;
+    }
+
+    .form-submit:hover { background: var(--gold-light); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy-deep);
+      border-top: 1px solid rgba(184,150,106,0.15);
+      padding: 36px 80px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 14px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+    }
+
+    .footer-legal {
+      font-size: 10px;
+      color: rgba(255,255,255,0.25);
+      font-weight: 300;
+      text-align: right;
+      line-height: 1.7;
+    }
+
+    /* ── LIGHTBOX ── */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(0,0,0,0.95);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .lightbox.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .lightbox-img-wrap {
+      position: relative;
+      max-width: 90vw;
+      max-height: 88vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lightbox-img {
+      max-width: 90vw;
+      max-height: 88vh;
+      object-fit: contain;
+      display: block;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.7);
+      font-size: 32px;
+      cursor: pointer;
+      line-height: 1;
+      font-weight: 200;
+      transition: color 0.2s;
+      z-index: 10;
+    }
+
+    .lightbox-close:hover { color: var(--white); }
+
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.7);
+      font-size: 20px;
+      width: 52px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      z-index: 10;
+    }
+
+    .lightbox-nav:hover { background: rgba(184,150,106,0.2); color: var(--white); }
+    .lightbox-prev { left: -72px; }
+    .lightbox-next { right: -72px; }
+
+    .lightbox-counter {
+      position: absolute;
+      bottom: -36px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      color: rgba(255,255,255,0.4);
+    }
+
+    .lightbox-caption {
+      position: absolute;
+      bottom: -64px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      color: rgba(255,255,255,0.35);
+      white-space: nowrap;
+      text-transform: uppercase;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      nav { padding: 20px 32px; }
+      nav.scrolled { padding: 14px 32px; }
+      .nav-links { display: none; }
+      .nav-cta { display: none; }
+      .nav-hamburger { display: flex; }
+
+      .hero-content { padding: 0 32px 64px; }
+      .hero-scroll { display: none; }
+
+      .stats-bar { padding: 0 32px; flex-wrap: wrap; }
+      .stat-item { flex: 0 0 33.333%; }
+
+      .section-inner { padding: 0 32px; }
+      .overview-grid,
+      .bedroom-layout,
+      .neighborhood-grid,
+      .interior-intro { grid-template-columns: 1fr; gap: 40px; }
+
+      .contact-inner { grid-template-columns: 1fr; gap: 48px; padding: 0 32px; }
+
+      .photo-grid { grid-template-columns: repeat(3, 1fr); padding: 0 32px; }
+      .pool-gallery { grid-template-columns: repeat(2, 1fr); }
+      .interior-grid { grid-template-columns: 1fr 1fr; }
+      .interior-grid-item:first-child { grid-column: span 2; }
+
+      .feature-strip { padding: 60px 32px; }
+      .feature-cols { grid-template-columns: 1fr; gap: 40px; }
+
+      .pool-text-block { padding: 60px 32px; }
+      .gallery-header { padding: 0 32px 40px; }
+
+      footer { padding: 28px 32px; flex-direction: column; gap: 16px; text-align: center; }
+      .footer-legal { text-align: center; }
+    }
+
+    @media (max-width: 640px) {
+      .hero-headline { font-size: 38px; }
+      .stats-bar { flex-wrap: wrap; }
+      .stat-item { flex: 0 0 50%; }
+      .photo-grid { grid-template-columns: repeat(2, 1fr); padding: 0 16px; }
+      .bedroom-gallery { grid-template-columns: 1fr; }
+      .bedroom-gallery .featured { aspect-ratio: 4/3; }
+      .form-row { grid-template-columns: 1fr; }
+      .lightbox-prev { left: -48px; }
+      .lightbox-next { right: -48px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <a href="#" class="nav-wordmark">
+      5100 SW 86th Street
+      <span>Ponce Davis · Miami</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#pool">Outdoors</a></li>
+      <li><a href="#interior">Interiors</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#neighborhood">Location</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Schedule Showing</a>
+    <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- BACKGROUND LAYER: fixed-position div, works at all zoom levels -->
+  <div id="bgLayer"></div>
+
+  <!-- VINE OVERLAY: z-index 2, BEHIND the photo (ssh-sticky is z-index 3) -->
+  <div class="vine-overlay" id="vineOverlay">
+    <svg id="vineSvg" width="100%" height="100%" viewBox="0 0 1280 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    </svg>
+  </div>
+
+  <!-- SMOOTH SCROLL HERO -->
+  <div class="ssh-wrapper" id="sshWrapper">
+
+    <!-- Layer 1: clipped background image (animates via JS) -->
+    <div class="ssh-sticky" id="sshSticky">
+      <div class="ssh-bg" id="sshBg"></div>
+      <div class="ssh-overlay" id="sshOverlay"></div>
+    </div>
+
+    <!-- Layer 2: text overlay — sticks at top, NOT inside clip-path -->
+    <div class="ssh-text-layer" id="sshContentPin">
+      <div class="hero-content">
+        <p class="hero-eyebrow">Ponce Davis · Miami, Florida</p>
+        <h1 class="hero-headline">Where the Jungle<br>Meets Home</h1>
+        <p class="hero-sub">5100 SW 86th Street &ensp;·&ensp; $6,999,000</p>
+        <div class="hero-actions">
+          <a href="#gallery" class="btn-primary">View Gallery</a>
+          <a href="#contact" class="btn-outline">Schedule a Showing</a>
+        </div>
+      </div>
+      <div class="hero-scroll">
+        <div class="hero-scroll-line"></div>
+        <span>Scroll</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- STATS BAR -->
+  <div class="stats-bar">
+    <div class="stat-item">
+      <div class="stat-value">6</div>
+      <div class="stat-label">Bedrooms</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">5</div>
+      <div class="stat-label">Bathrooms</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">6,580</div>
+      <div class="stat-label">Interior Sq Ft</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">29,403</div>
+      <div class="stat-label">Lot Sq Ft</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">2</div>
+      <div class="stat-label">Heated Pools</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">2001</div>
+      <div class="stat-label">Year Built</div>
+    </div>
+  </div>
+
+  <!-- OVERVIEW -->
+  <section id="overview">
+    <div class="section-inner">
+      <div class="overview-grid">
+        <img
+          class="overview-image"
+          src="https://img-v2.gtsstatic.net/reno/imagereader.aspx?url=https%3A%2F%2Fm.sothebysrealty.com%2F1194i215%2F2n72eaahqr9gmk2hy5q5eptw00i215&w=1200&q=85&option=N&permitphotoenlargement=false"
+          alt="Entry foyer of 5100 SW 86th Street"
+          loading="lazy"
+        >
+        <div class="overview-text">
+          <p class="section-eyebrow">Property Overview</p>
+          <h2 class="section-title">Mediterranean<br><em>Masterpiece</em></h2>
+          <div class="divider"></div>
+          <p class="section-body">
+            Set behind private gates on one of Miami's most coveted streets, 5100 SW 86th Street is a Mediterranean estate unlike anything on the market. This ivy-draped home sits on nearly 30,000 square feet of lush tropical grounds in the heart of Ponce Davis — offering six bedrooms, five baths, and over 7,250 square feet of total living space designed for those who demand both grandeur and privacy.
+          </p>
+          <p class="section-body" style="margin-top:20px;">
+            From the soaring marble foyer to the twin 10-foot deep heated pools framed by towering palms, every detail of this home was built to impress.
+          </p>
+
+          <div class="overview-price">
+            <span>Listing Price</span>
+            $6,999,000
+          </div>
+
+          <div class="detail-grid">
+            <div class="detail-item">
+              <div class="detail-key">Address</div>
+              <div class="detail-val">5100 SW 86th St</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-key">Neighborhood</div>
+              <div class="detail-val">Ponce Davis</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-key">Interior</div>
+              <div class="detail-val">6,580 sq ft</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-key">Total Under Roof</div>
+              <div class="detail-val">7,251 sq ft</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-key">Lot Size</div>
+              <div class="detail-val">29,403 sq ft</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-key">Garage</div>
+              <div class="detail-val">2-Car</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-key">Property Tax</div>
+              <div class="detail-val">$67,621 / yr</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-key">MLS #</div>
+              <div class="detail-val">A11861735</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- POOL & OUTDOOR -->
+  <section id="pool">
+    <div class="pool-hero">
+      <img
+        src="https://img-v2.gtsstatic.net/reno/imagereader.aspx?url=https%3A%2F%2Fm.sothebysrealty.com%2F1194i215%2Fgz028r9p7gka40p11fa7kdgs95i215&w=2400&q=90&option=N&permitphotoenlargement=false"
+        alt="Pool at twilight — 5100 SW 86th Street"
+        loading="lazy"
+      >
+      <div class="pool-hero-overlay"></div>
+    </div>
+    <div class="pool-text-block">
+      <p class="section-eyebrow">Pool &amp; Outdoor Living</p>
+      <h2 class="section-title" style="color:var(--white);">Your Private<br><em style="color:var(--gold-light)">Tropical Retreat</em></h2>
+      <div class="divider" style="background:var(--gold);"></div>
+      <p class="section-body" style="color:rgba(255,255,255,0.65); max-width:720px;">
+        Few properties in Miami can match this backyard. Two oversized heated pools — each 10 feet deep — anchor an outdoor living space of true resort caliber. Lush palms tower overhead, the spa glows at dusk, and the fountain feature transforms the yard into something you'd expect to find at a private Caribbean villa. This is Miami outdoor living at its absolute finest.
+      </p>
+    </div>
+    <div class="pool-gallery" style="padding: 0 4px 4px;">
+      <img
+        src="https://img-v2.gtsstatic.net/reno/imagereader.aspx?url=https%3A%2F%2Fm.sothebysrealty.com%2F1194i215%2Fbkde6xzsasrb4rp0z8898ap9j1i215&w=900&q=85&option=N&permitphotoenlargement=false"
+        alt="Side exterior grounds"
+        loading="lazy"
+        data-photo="32"
+        onclick="openLightbox(31)"
+      >
+      <img
+        src="https://img-v2.gtsstatic.net/reno/imagereader.aspx?url=https%3A%2F%2Fm.sothebysrealty.com%2F1194i215%2Fthpbx2rx9a3e466vpw72xap8c5i215&w=900&q=85&option=N&permitphotoenlargement=false"
+        alt="Long pool shot daytime"
+        loading="lazy"
+        data-photo="33"
+        onclick="openLightbox(32)"
+      >
+      <img
+        src="https://img-v2.gtsstatic.net/reno/imagereader.aspx?url=https%3A%2F%2Fm.sothebysrealty.com%2F1194i215%2Fjwf20smn6m7x4bphb0mtrq62z7i215&w=900&q=85&option=N&permitphotoenlargement=false"
+        alt="Rear grounds and exterior"
+        loading="lazy"
+        data-photo="30"
+        onclick="openLightbox(29)"
+      >
+      <img
+        src="https://img-v2.gtsstatic.net/reno/imagereader.aspx?url=https%3A%2F%2Fm.sothebysrealty.com%2F1194i215%2F7xbyk66yqtgs41e2264xk0k4n5i215&w=900&q=85&option=N&permitphotoenlargement=false"
+        alt="Pool twilight dramatic"
+        loading="lazy"
+        data-photo="37"
+        onclick="openLightbox(36)"
+      >
+    </div>
+  </section>
+
+  <!-- INTERIOR -->
+  <section id="interior">
+    <div class="section-inner">
+      <div class="interior-intro">
+        <div>
+          <p class="section-eyebrow">Interior Tour</p>
+          <h2 class="section-title">Designed for Living<br><em>at the Highest Level</em></h2>
+        </div>
+        <div>
+          <div class="divider"></div>
+          <p class="section-body">
+            Step through the wrought-iron arched doors into a world of polished marble and soaring ceilings. The grand foyer sets the tone with its inlaid mosaic medallion and cascading iron staircase. Beyond, a formal living room anchored by fireplace and chandelier, a chef's kitchen open to a garden-view breakfast nook, a glass-wrapped sunroom, and six thoughtfully appointed bedrooms.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="interior-grid" style="padding: 0 4px 4px;">
+      <div class="interior-grid-item" onclick="openLightbox(6)">
+        <img src="https://img-v2.gtsstatic.net/reno/imagereader.aspx?url=https%3A%2F%2Fm.sothebysrealty.com%2F1194i215%2Fqdqmwwejf7yh4bjgnkr0jhcgy5i215&w=1600&q=85&option=N&permitphotoenlargement=false" alt="Grand entry foyer" loading="lazy">
+        <div class="interior-caption">Grand Entry Foyer</div>
+      </div>
+      <div class="interior-grid-item" onclick="openLightbox(8)">
+        <img src="https://img-v2.gtsstatic.net/reno/imagereader.aspx?url=https%3A%2F%2Fm.sothebysrealty.com%2F1194i215%2Fdtq5s3cmzfm54v2taztj795617i215&w=900&q=85&option=N&permitphotoenlargement=false" alt="Formal living room" loading="lazy">
+        <div class="interior-caption">Formal Living Room</div>
+      </div>
+      <div class="interior-grid-item" onclick="openLightbox(13)">
+        <img src="https://img-v2.gtsstatic.net/reno/imagereader.aspx?url=https%3A%2F%2Fm.sothebysrealty.com%2F1194i215%2Fbtcwz2hydb7bm1pmz8f1p9hjm4i215&w=900&q=85&option=N&permitphotoenlargement=false" alt="Chef's kitchen" loading="lazy">
+        <div class="interior-caption">Chef's Kitchen</div>
+      </div>
+      <div class="interior-grid-item" onclick="openLightbox(11)">
+        <img src="https://img-v2.gtsstatic.net/reno/imagereader.aspx?url=https%3A%2F%2Fm.sothebysrealty.com%2F1194i215%2Fwc8wgew7brpk4meqzwv7ctae04i215&w=900&q=85&option=N&permitphotoenlargement=false" alt="Breakfast nook" loading="lazy">
+        <div class="interior-caption">Breakfast Nook</div>
+      </div>
+      <div class="interior-grid-item" onclick="openLightbox(27)">
+        <img src="https://img-v2.gtsstatic.net/reno/imagereader.aspx?url=https%3A%2F%2Fm.sothebysrealty.com%2F1194i215%2Fmfesmw3t4bd0m1629j7mjremd4i215&w=1600&q=85&option=N&permitphotoenlargement=false" alt="Sunroom" loading="lazy">
+        <div class="interior-caption">Sunroom / Florida Room</div>
+      </div>
+      <div class="interior-grid-item" onclick="openLightbox(21)">
+        <img src="https://img-v2.gtsstatic.net/reno/imagereader.aspx?url=https%3A%2F%2Fm.sothebysrealty.com%2F1194i215%2F48fwyzb94n26mtaqqhq0rszdc6i215&w=900&q=85&option=N&permitphotoenlargement=false" alt="Balcony terrace" loading="lazy">
+        <div class="interior-caption">Upper Balcony Terrace</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURE STRIP -->
+  <div class="feature-strip">
+    <div class="feature-strip-inner">
+      <p class="section-eyebrow">Property Features</p>
+      <div class="feature-cols">
+        <div>
+          <h3 class="feature-col-title">Interior</h3>
+          <ul class="feature-list">
+            <li>Grand two-story foyer with polished marble floors and decorative mosaic medallion</li>
+            <li>Sweeping curved staircase with custom wrought-iron railing</li>
+            <li>Formal living room with electric fireplace and crystal chandelier</li>
+            <li>Chef's kitchen with white custom cabinetry and center island</li>
+            <li>Enclosed sunroom with floor-to-ceiling windows on three sides</li>
+            <li>Primary suite with floor-to-ceiling windows and garden views</li>
+            <li>Walk-in dressing room with dark-stained wood cabinetry and chandelier</li>
+            <li>Marble flooring throughout main level; hardwood on upper levels</li>
+            <li>Whole-home surround sound system</li>
+            <li>Whole-property backup generator</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="feature-col-title">Exterior</h3>
+          <ul class="feature-list">
+            <li>Privately gated entry with paver motor court</li>
+            <li>Ivy-covered Mediterranean facade with arched windows and ironwork</li>
+            <li>Terracotta tile roof — classic Mediterranean aesthetic</li>
+            <li>Two oversized rectangular heated pools — each 10 feet deep</li>
+            <li>Spa / hot tub integrated into pool area with fountain feature</li>
+            <li>Expansive paved pool deck with lounge and dining areas</li>
+            <li>Multiple covered balcony terraces with tropical canopy views</li>
+            <li>Lush mature landscaping — towering palms, ferns, and dense foliage</li>
+            <li>Architectural exterior lighting and Juliet balconies</li>
+            <li>2-car garage on a 29,403 SF lot (~0.67 acres)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEDROOMS -->
+  <section id="bedrooms">
+    <div class="section-inner" style="max-width:1100px;">
+      <div style="text-align:center;margin-bottom:48px;">
+        <p class="section-eyebrow">Bedrooms &amp; Baths</p>
+        <h2 class="section-title">Six Rooms,<br><em>Each Its Own World</em></h2>
+        <div class="divider" style="margin:20px auto;"></div>
+        <p class="section-body" style="max-width:680px;margin:0 auto;">
+          From four-poster iron canopy suites to the primary retreat with panoramic garden views. Five bathrooms feature marble tile, arched windows, and oversized soaking areas — each room a private sanctuary.
+        </p>
+      </div>
+    </div>
+
+    <!-- Interactive Room Selector -->
+    <div class="room-selector-wrap">
+      <div class="room-selector" id="roomSelector">
+
+        <div class="room-panel active" data-index="0"
+          style="background-image:url('https://img-v2.gtsstatic.net/reno/imagereader.aspx?url=https%3A%2F%2Fm.sothebysrealty.com%2F1194i215%2Fk6vx09m19c2nmr6v0t5w270tr0i215&w=1200&q=85&option=N&permitphotoenlargement=false')">
+          <div class="room-shadow"></div>
+          <div class="room-label">
+            <div class="room-icon" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:500;color:white;width:32px;height:32px;line-height:1;display:flex;align-items:center;justify-content:center;border:1.5px solid rgba(255,255,255,0.6);border-radius:50%;flex-shrink:0;">1</div>
+            <div class="room-info">
+              <div class="room-title">Bedroom 1</div>
+              <div class="room-sub">Primary suite</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="room-panel" data-index="1"
+          style="background-image:url('https://img-v2.gtsstatic.net/reno/imagereader.aspx?url=https%3A%2F%2Fm.sothebysrealty.com%2F1194i215%2F3ttdfnnga4pamj21nhkcyd8ks5i215&w=1200&q=85&option=N&permitphotoenlargement=false')">
+          <div class="room-shadow"></div>
+          <div class="room-label">
+            <div class="room-icon" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:500;color:white;width:32px;height:32px;line-height:1;display:flex;align-items:center;justify-content:center;border:1.5px solid rgba(255,255,255,0.6);border-radius:50%;flex-shrink:0;">2</div>
+            <div class="room-info">
+              <div class="room-title">Bedroom 2</div>
+              <div class="room-sub">Wood shutter suite</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="room-panel" data-index="2"
+          style="background-image:url('https://img-v2.gtsstatic.net/reno/imagereader.aspx?url=https%3A%2F%2Fm.sothebysrealty.com%2F1194i215%2Ffjy3br66zs0jmje0x31m9kzf32i215&w=1200&q=85&option=N&permitphotoenlargement=false')">
+          <div class="room-shadow"></div>
+          <div class="room-label">
+            <div class="room-icon" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:500;color:white;width:32px;height:32px;line-height:1;display:flex;align-items:center;justify-content:center;border:1.5px solid rgba(255,255,255,0.6);border-radius:50%;flex-shrink:0;">3</div>
+            <div class="room-info">
+              <div class="room-title">Bedroom 3</div>
+              <div class="room-sub">Upper floor suite</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="room-panel" data-index="3"
+          style="background-image:url('https://img-v2.gtsstatic.net/reno/imagereader.aspx?url=https%3A%2F%2Fm.sothebysrealty.com%2F1194i215%2Fs93kgvbv3jrf4jya46tb59tes4i215&w=1200&q=85&option=N&permitphotoenlargement=false')">
+          <div class="room-shadow"></div>
+          <div class="room-label">
+            <div class="room-icon" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:500;color:white;width:32px;height:32px;line-height:1;display:flex;align-items:center;justify-content:center;border:1.5px solid rgba(255,255,255,0.6);border-radius:50%;flex-shrink:0;">4</div>
+            <div class="room-info">
+              <div class="room-title">Bedroom 4</div>
+              <div class="room-sub">Garden views</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="room-panel" data-index="4"
+          style="background-image:url('https://img-v2.gtsstatic.net/reno/imagereader.aspx?url=https%3A%2F%2Fm.sothebysrealty.com%2F1194i215%2F6t66rbr0f9rgmg6kqxt95qhfd1i215&w=1200&q=85&option=N&permitphotoenlargement=false')">
+          <div class="room-shadow"></div>
+          <div class="room-label">
+            <div class="room-icon" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:500;color:white;width:32px;height:32px;line-height:1;display:flex;align-items:center;justify-content:center;border:1.5px solid rgba(255,255,255,0.6);border-radius:50%;flex-shrink:0;">5</div>
+            <div class="room-info">
+              <div class="room-title">Bedroom 5</div>
+              <div class="room-sub">Four-poster suite</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="room-panel" data-index="5"
+          style="background-image:url('https://img-v2.gtsstatic.net/reno/imagereader.aspx?url=https%3A%2F%2Fm.sothebysrealty.com%2F1194i215%2Fs49h45m0kr97metve00k8g8dy0i215&w=1200&q=85&option=N&permitphotoenlargement=false')">
+          <div class="room-shadow"></div>
+          <div class="room-label">
+            <div class="room-icon" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:500;color:white;width:32px;height:32px;line-height:1;display:flex;align-items:center;justify-content:center;border:1.5px solid rgba(255,255,255,0.6);border-radius:50%;flex-shrink:0;">6</div>
+            <div class="room-info">
+              <div class="room-title">Bedroom 6</div>
+              <div class="room-sub">Balcony access</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FULL GALLERY -->
+  <section id="gallery">
+    <div class="gallery-header">
+      <p class="section-eyebrow">Photo Gallery</p>
+      <h2 class="section-title" style="color:var(--white);">All 40 <em style="color:var(--gold-light);">Photos</em></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="photo-grid" id="photoGrid"></div>
+  </section>
+
+  <!-- NEIGHBORHOOD -->
+  <section id="neighborhood">
+    <div class="section-inner">
+      <div class="neighborhood-grid">
+        <div class="neighborhood-images">
+          <img
+            src="https://img-v2.gtsstatic.net/reno/imagereader.aspx?url=https%3A%2F%2Fm.sothebysrealty.com%2F1194i215%2Fmap2nh70fqegm2277bxbs70vg6i215&w=1200&q=85&option=N&permitphotoenlargement=false"
+            alt="Aerial view of Ponce Davis neighborhood"
+            loading="lazy"
+          >
+          <img
+            src="https://img-v2.gtsstatic.net/reno/imagereader.aspx?url=https%3A%2F%2Fm.sothebysrealty.com%2F1194i215%2F6ed5kzn5ey7rm7a482j1dwc091i215&w=800&q=85&option=N&permitphotoenlargement=false"
+            alt="Aerial view at twilight"
+            loading="lazy"
+          >
+          <img
+            src="https://img-v2.gtsstatic.net/reno/imagereader.aspx?url=https%3A%2F%2Fm.sothebysrealty.com%2F1194i215%2Fg4h5tnx84d024zybzesb45af46i215&w=800&q=85&option=N&permitphotoenlargement=false"
+            alt="Aerial overhead daytime"
+            loading="lazy"
+          >
+        </div>
+        <div>
+          <p class="section-eyebrow">Location</p>
+          <h2 class="section-title">Ponce Davis —<br><em>Miami's Most Prestigious Address</em></h2>
+          <div class="divider"></div>
+          <p class="section-body">
+            Ponce Davis sits quietly between Coconut Grove and Coral Gables — two of Miami's most beloved neighborhoods — offering the rare combination of true residential tranquility and city-close convenience. Wide streets, a canopy of mature trees, and neighbors who value privacy make this one of the few places in South Florida that genuinely feels like an escape.
+          </p>
+          <div class="proximity-list">
+            <div class="proximity-item">
+              <div class="proximity-dot"></div>
+              <span>Minutes to Coconut Grove — boutiques, restaurants, marinas, galleries</span>
+            </div>
+            <div class="proximity-item">
+              <div class="proximity-dot"></div>
+              <span>Quick access to Coral Gables Miracle Mile and Brickell City Centre</span>
+            </div>
+            <div class="proximity-item">
+              <div class="proximity-dot"></div>
+              <span>~15 minutes to Miami International Airport</span>
+            </div>
+            <div class="proximity-item">
+              <div class="proximity-dot"></div>
+              <span>~20 minutes to Miami Beach and the Design District</span>
+            </div>
+            <div class="proximity-item">
+              <div class="proximity-dot"></div>
+              <span>Top-rated Dade County schools and Miami's best private schools nearby</span>
+            </div>
+            <div class="proximity-item">
+              <div class="proximity-dot"></div>
+              <span>Close to top golf clubs, country clubs, and private health clubs</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-inner">
+      <div class="contact-text">
+        <p class="section-eyebrow">Schedule a Private Showing</p>
+        <h2 class="section-title">Experience It<br><em style="color:var(--gold-light);">in Person</em></h2>
+        <div class="divider"></div>
+        <p class="section-body">
+          A property like this can't be fully understood through photos. Schedule a private tour today with the listing agents.
+        </p>
+        <div class="agent-cards" style="margin-top:40px;">
+          <div class="agent-card">
+            <div class="agent-brokerage">ONE Sotheby's International Realty · Coconut Grove</div>
+            <div class="agent-name">Saddy Abaunza Delgado</div>
+            <div class="agent-phone">+1 305.632.4256</div>
+            <a href="tel:+13056324256" class="btn-cta-block">Call Agent</a>
+          </div>
+          <div class="agent-card">
+            <div class="agent-brokerage">ONE Sotheby's International Realty · Coconut Grove</div>
+            <div class="agent-name">Valeria Kelly</div>
+            <div class="agent-phone">ONE Sotheby's International Realty</div>
+            <a href="mailto:info@sothebysrealty.com" class="btn-cta-block">Send Email</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form-wrap">
+        <p class="section-eyebrow" style="color:var(--gold); margin-bottom:24px;">Request Information</p>
+        <form class="contact-form" onsubmit="handleForm(event)">
+          <div class="form-row">
+            <div class="form-field">
+              <label for="fname">First Name</label>
+              <input type="text" id="fname" name="fname" placeholder="Your first name" required>
+            </div>
+            <div class="form-field">
+              <label for="lname">Last Name</label>
+              <input type="text" id="lname" name="lname" placeholder="Your last name" required>
+            </div>
+          </div>
+          <div class="form-field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="your@email.com" required>
+          </div>
+          <div class="form-field">
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" name="phone" placeholder="+1 (000) 000-0000">
+          </div>
+          <div class="form-field">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" placeholder="I'd like to schedule a private showing of 5100 SW 86th Street..."></textarea>
+          </div>
+          <button type="submit" class="form-submit">Request a Private Showing</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-brand">5100 SW 86th Street · Ponce Davis, Miami</div>
+    <div class="footer-legal">
+      Listed by Saddy Abaunza Delgado &amp; Valeria Kelly · ONE Sotheby's International Realty<br>
+      MLS # A11861735 · All information deemed reliable but not guaranteed.
+    </div>
+  </footer>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" onclick="handleLightboxClick(event)">
+    <button class="lightbox-close" onclick="closeLightbox()">&#215;</button>
+    <div class="lightbox-img-wrap">
+      <button class="lightbox-nav lightbox-prev" onclick="navigateLightbox(-1); event.stopPropagation();">&#8592;</button>
+      <img class="lightbox-img" id="lightboxImg" src="" alt="">
+      <button class="lightbox-nav lightbox-next" onclick="navigateLightbox(1); event.stopPropagation();">&#8594;</button>
+      <div class="lightbox-counter" id="lightboxCounter"></div>
+    </div>
+  </div>
+
+  <script>
+    // Always start at top — prevents browser scroll-restoration and hash-anchors from jumping mid-page
+    history.scrollRestoration = 'manual';
+    // Use load event so this fires AFTER the browser processes any #hash anchor scroll
+    window.addEventListener('load', () => {
+      if (window.location.hash) {
+        history.replaceState(null, '', window.location.pathname);
+      }
+      window.scrollTo(0, 0);
+    });
+
+    // Photo data — 40 photos in order matching the brief
+    const PHOTOS = [
+      { id: '4r8wntcp9ehcmjj0y80p4efhs3i215', label: 'Front Facade — Twilight' },
+      { id: 's1n3mencr7hp4c2hs4m6p1cs15i215', label: 'Front Facade — Wider View' },
+      { id: 'gz028r9p7gka40p11fa7kdgs95i215', label: 'Pool at Twilight' },
+      { id: 'xn9ggardbtnz4ct7pzmr3n3295i215', label: 'Aerial — Fountain Feature' },
+      { id: 'xanbzxynk89zmvpy2wge4s8zr7i215', label: 'Front Facade — Daytime' },
+      { id: '2n72eaahqr9gmk2hy5q5eptw00i215', label: 'Entry from Outside' },
+      { id: 'qdqmwwejf7yh4bjgnkr0jhcgy5i215', label: 'Grand Entry Foyer' },
+      { id: '0988er3knn6p4m2pve2scpqjh1i215', label: 'Main Entry Hall' },
+      { id: 'dtq5s3cmzfm54v2taztj795617i215', label: 'Formal Living Room' },
+      { id: '7nz7ff3rcpb2md2qaamrc1hn26i215', label: 'Living Room — Alternate Angle' },
+      { id: 'fn140gjb7aqrm0tvjz1bmc98b3i215', label: 'Staircase Landing' },
+      { id: 'wc8wgew7brpk4meqzwv7ctae04i215', label: 'Great Room' },
+      { id: 'e6qxg0hvgmja4ravkqwq7x6fw1i215', label: 'Sitting Room' },
+      { id: 'btcwz2hydb7bm1pmz8f1p9hjm4i215', label: "Chef's Kitchen" },
+      { id: 'k6vx09m19c2nmr6v0t5w270tr0i215', label: 'Breakfast Nook' },
+      { id: '3ttdfnnga4pamj21nhkcyd8ks5i215', label: 'Bedroom — Wood Shutters' },
+      { id: '59xeebqdsx3t4waef1a9jy7z80i215', label: 'Four-Poster Bedroom' },
+      { id: 'fjy3br66zs0jmje0x31m9kzf32i215', label: 'Upper Hallway' },
+      { id: 'mxs8v8mq4v9y4was7yc3kj8za1i215', label: 'Bedroom — Balcony Access' },
+      { id: 'byg94zv8w07nmparyv5rk86pc1i215', label: 'Bedroom — Garden Views' },
+      { id: '8ba7bxxnpcpnm96h24nzn6d7y2i215', label: 'Upper Balcony Terrace' },
+      { id: '48fwyzb94n26mtaqqhq0rszdc6i215', label: 'Primary Suite' },
+      { id: 's93kgvbv3jrf4jya46tb59tes4i215', label: 'Primary Bathroom' },
+      { id: 'p759fye0t3xzmdyedrznbmg2z3i215', label: 'Bedroom — Minimal' },
+      { id: '6t66rbr0f9rgmg6kqxt95qhfd1i215', label: 'Four-Poster Bedroom II' },
+      { id: 's49h45m0kr97metve00k8g8dy0i215', label: 'Balcony Seating Area' },
+      { id: 'tsz2bvw8qpx94vjev822cx40m6i215', label: 'Sunroom / Florida Room' },
+      { id: 'mfesmw3t4bd0m1629j7mjremd4i215', label: 'Walk-In Dressing Room' },
+      { id: '80xmw2pc5xy9maa6zsw5wtyp81i215', label: 'Pool & Spa — Daytime' },
+      { id: 'jwf20smn6m7x4bphb0mtrq62z7i215', label: 'Rear Exterior — Daytime' },
+      { id: 'f664b6qbkf31mkp9bp1vcnntg2i215', label: 'Rear Exterior — Wider' },
+      { id: 'bkde6xzsasrb4rp0z8898ap9j1i215', label: 'Side Exterior' },
+      { id: 'thpbx2rx9a3e466vpw72xap8c5i215', label: 'Long Pool — Daytime' },
+      { id: 'rrwxxtrwv74g44ap1zmpw49am6i215', label: 'Pool Toward House' },
+      { id: '18r2mgkfpkqvmpjvmn66th33s2i215', label: 'Rear — Twilight' },
+      { id: 't2bp8r2enet7m327kzfmg3nt07i215', label: 'Twilight — Spa & Hot Tub' },
+      { id: '7xbyk66yqtgs41e2264xk0k4n5i215', label: 'Twilight Pool — Dramatic' },
+      { id: 'g4h5tnx84d024zybzesb45af46i215', label: 'Aerial — Daytime' },
+      { id: '6ed5kzn5ey7rm7a482j1dwc091i215', label: 'Wide Aerial — Twilight' },
+      { id: 'map2nh70fqegm2277bxbs70vg6i215', label: 'Wide Aerial — Neighborhood' },
+    ];
+
+    const CDN = 'https://img-v2.gtsstatic.net/reno/imagereader.aspx?url=';
+    const BASE = 'https://m.sothebysrealty.com/1194i215/';
+    const SUFFIX = '&option=N&permitphotoenlargement=false';
+
+    function photoUrl(id, w = 1200) {
+      return `${CDN}${encodeURIComponent(BASE + id)}&w=${w}&q=85${SUFFIX}`;
+    }
+
+    // Build photo grid
+    const grid = document.getElementById('photoGrid');
+    PHOTOS.forEach((photo, i) => {
+      const item = document.createElement('div');
+      item.className = 'photo-grid-item';
+      item.innerHTML = `
+        <img
+          src="${photoUrl(photo.id, 600)}"
+          alt="${photo.label}"
+          loading="lazy"
+          onclick="openLightbox(${i})"
+        >
+        <div class="photo-number">${i + 1} / 40</div>
+      `;
+      grid.appendChild(item);
+    });
+
+    // Lightbox
+    let currentPhoto = 0;
+
+    function openLightbox(index) {
+      currentPhoto = index;
+      updateLightbox();
+      document.getElementById('lightbox').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function updateLightbox() {
+      const photo = PHOTOS[currentPhoto];
+      document.getElementById('lightboxImg').src = photoUrl(photo.id, 1920);
+      document.getElementById('lightboxImg').alt = photo.label;
+      document.getElementById('lightboxCounter').textContent = `${currentPhoto + 1} of ${PHOTOS.length}  —  ${photo.label}`;
+    }
+
+    function navigateLightbox(dir) {
+      currentPhoto = (currentPhoto + dir + PHOTOS.length) % PHOTOS.length;
+      updateLightbox();
+    }
+
+    function handleLightboxClick(e) {
+      if (e.target === document.getElementById('lightbox')) closeLightbox();
+    }
+
+    document.addEventListener('keydown', e => {
+      const lb = document.getElementById('lightbox');
+      if (!lb.classList.contains('active')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowRight') navigateLightbox(1);
+      if (e.key === 'ArrowLeft') navigateLightbox(-1);
+    });
+
+    // Smooth scroll for nav anchor links only (not triggered at page load)
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', e => {
+        const target = document.querySelector(link.getAttribute('href'));
+        if (!target) return;
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth' });
+        history.replaceState(null, '', link.getAttribute('href'));
+      });
+    });
+
+    // Nav scroll
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // ── Smooth Scroll Hero ──
+    // Mirrors the framer-motion component's clip-path + backgroundSize animation.
+    // initialClip=25, finalClip=75, scrollHeight=1500
+    const SSH_SCROLL_HEIGHT = 1500;
+    const SSH_INIT_CLIP = 25;   // polygon starts at 25%
+    const SSH_FINAL_CLIP = 75;  // polygon ends at 75%
+
+    const sshWrapper   = document.getElementById('sshWrapper');
+    const sshSticky    = document.getElementById('sshSticky');
+    const sshBg        = document.getElementById('sshBg');
+    const sshPin       = document.getElementById('sshContentPin');
+    const vineOverlay  = document.getElementById('vineOverlay');
+
+    // Set wrapper height = scrollHeight + 100vh
+    sshWrapper.style.height = `calc(${SSH_SCROLL_HEIGHT}px + 100vh)`;
+
+    function lerp(a, b, t) { return a + (b - a) * t; }
+    function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+    function mapRange(value, inMin, inMax, outMin, outMax) {
+      return lerp(outMin, outMax, clamp((value - inMin) / (inMax - inMin), 0, 1));
+    }
+
+    function updateSsh() {
+      const scrollY = window.scrollY;
+
+      // clip-path: polygon(cs% cs%, ce% cs%, ce% ce%, cs% ce%)
+      //   cs: 25→0 over [0, scrollHeight]
+      //   ce: 75→100 over [0, scrollHeight]
+      const cs = mapRange(scrollY, 0, SSH_SCROLL_HEIGHT, SSH_INIT_CLIP, 0);
+      const ce = mapRange(scrollY, 0, SSH_SCROLL_HEIGHT, SSH_FINAL_CLIP, 100);
+      sshSticky.style.clipPath =
+        `polygon(${cs}% ${cs}%, ${ce}% ${cs}%, ${ce}% ${ce}%, ${cs}% ${ce}%)`;
+
+      // backgroundSize: 170%→100% over [0, scrollHeight+500]
+      const bgSize = mapRange(scrollY, 0, SSH_SCROLL_HEIGHT + 500, 170, 100);
+      sshBg.style.backgroundSize = `${bgSize}%`;
+
+      // Vines: fade out as image expands, completely gone by 60% of scroll
+      const vineOpacity = mapRange(scrollY, 0, SSH_SCROLL_HEIGHT * 0.6, 1, 0);
+      vineOverlay.style.opacity = vineOpacity;
+
+      // Fade hero text out in the last third of the scroll phase
+      const textOpacity = mapRange(scrollY, SSH_SCROLL_HEIGHT * 0.55, SSH_SCROLL_HEIGHT * 0.88, 1, 0);
+      sshPin.style.opacity = textOpacity;
+    }
+
+    window.addEventListener('scroll', updateSsh, { passive: true });
+    updateSsh(); // run once on load
+
+    // Form
+    function handleForm(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('.form-submit');
+      btn.textContent = 'Request Sent — We\'ll Be in Touch';
+      btn.style.background = '#5A8A5A';
+      btn.style.color = 'white';
+      btn.disabled = true;
+    }
+
+    /* ── ROOM SELECTOR INTERACTION ── */
+    (function initRoomSelector() {
+      const panels = document.querySelectorAll('.room-panel');
+      panels.forEach(panel => {
+        panel.addEventListener('click', () => {
+          panels.forEach(p => p.classList.remove('active'));
+          panel.classList.add('active');
+        });
+      });
+    })();
+
+    /* ── VINE GENERATOR ── */
+    (function buildVines() {
+      const svg = document.getElementById('vineSvg');
+      if (!svg) return;
+
+      const ns = 'http://www.w3.org/2000/svg';
+      const VW = 1280, VH = 900; // viewBox dims — extra height so vines reach bottom
+      svg.setAttribute('viewBox', `0 0 ${VW} ${VH}`);
+      svg.setAttribute('height', '100%');
+
+      // Seeded LCG for reproducible layout
+      let seed = 137;
+      function rng() {
+        seed = (seed * 1664525 + 1013904223) >>> 0;
+        return seed / 0xffffffff;
+      }
+      function r(lo, hi) { return lo + rng() * (hi - lo); }
+
+      const stemPalette = ['#0a1f06','#0d2508','#0b2207','#0e2809','#091c05','#0c2407'];
+      const leafPalette = ['#0d2508','#0f2a09','#0b2207','#102c0a','#0c2608','#0e2909','#0a2006','#112e0b'];
+
+      function el(tag, attrs) {
+        const e = document.createElementNS(ns, tag);
+        for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v);
+        return e;
+      }
+
+      // Small oval leaf pair at a point along the stem
+      // lx,ly = position; angle = stem angle in degrees; size = leaf radius
+      function leafPair(lx, ly, stemAngleDeg, size, lc) {
+        const perpRad = (stemAngleDeg - 90) * Math.PI / 180;
+        const g = el('g', {});
+        [-1, 1].forEach(side => {
+          const ox = Math.cos(perpRad) * size * side;
+          const oy = Math.sin(perpRad) * size * side;
+          const leafAngle = stemAngleDeg + side * 70 + r(-15, 15);
+          const s = size;
+          const cx = (lx + ox).toFixed(1);
+          const cy = (ly + oy).toFixed(1);
+          const rot = `rotate(${leafAngle.toFixed(1)},${cx},${cy})`;
+
+          // Base leaf
+          const leaf = el('ellipse', {
+            cx, cy,
+            rx: (s * 0.45).toFixed(1),
+            ry: (s * 0.9).toFixed(1),
+            fill: lc,
+            transform: rot,
+            opacity: (0.75 + r(0, 0.2)).toFixed(2)
+          });
+          g.appendChild(leaf);
+
+          // #7 — small light highlight near the top of the leaf
+          const hlAngleRad = leafAngle * Math.PI / 180;
+          const hlOffX = (lx + ox - Math.sin(hlAngleRad) * s * 0.35).toFixed(1);
+          const hlOffY = (ly + oy - Math.cos(hlAngleRad) * s * 0.35).toFixed(1);
+          const highlight = el('ellipse', {
+            cx: hlOffX,
+            cy: hlOffY,
+            rx: (s * 0.18).toFixed(1),
+            ry: (s * 0.28).toFixed(1),
+            fill: '#a8c878',
+            transform: rot,
+            opacity: (0.18 + r(0, 0.12)).toFixed(2)
+          });
+          g.appendChild(highlight);
+        });
+        return g;
+      }
+
+      // Evaluate cubic bezier at t
+      function bez(p0, p1, p2, p3, t) {
+        const mt = 1 - t;
+        return mt*mt*mt*p0 + 3*mt*mt*t*p1 + 3*mt*t*t*p2 + t*t*t*p3;
+      }
+      // Bezier tangent angle at t
+      function bezAngle(x0, cx1, cx2, x1, y0, cy1, cy2, y1, t) {
+        const mt = 1 - t;
+        const dx = 3*(mt*mt*(cx1-x0) + 2*mt*t*(cx2-cx1) + t*t*(x1-cx2));
+        const dy = 3*(mt*mt*(cy1-y0) + 2*mt*t*(cy2-cy1) + t*t*(y1-cy2));
+        return Math.atan2(dy, dx) * 180 / Math.PI;
+      }
+
+      // Generate strand x positions — dense, covering 80%+ of width
+      // Use a grid approach with jitter so strands are evenly spread
+      const STRAND_COUNT = 90;
+      const xs = [];
+      for (let i = 0; i < STRAND_COUNT; i++) {
+        // Evenly spaced with jitter
+        const base = (i / STRAND_COUNT) * VW;
+        xs.push(base + r(-10, 10));
+      }
+
+      xs.forEach((startX, idx) => {
+        const delay    = r(0.05, 1.6).toFixed(2);
+        const dur      = r(1.2, 2.0).toFixed(2);
+        const sc       = stemPalette[idx % stemPalette.length];
+        const lc       = leafPalette[idx % leafPalette.length];
+        const sw       = r(1.8, 3.2).toFixed(1);
+        const swayAmp  = r(0.8, 2.2).toFixed(1);
+        const swayDur  = r(3.5, 7).toFixed(1);
+
+        // Vine length: always reaches to or beyond bottom (VH)
+        const vineLen = r(VH * 0.82, VH * 1.05);
+
+        // Gentle S-curve: two control points that give natural drape
+        const drift = r(-55, 55);
+        const cx1 = startX + r(-30, 30);
+        const cy1 = vineLen * 0.28;
+        const cx2 = startX + drift * 0.8 + r(-20, 20);
+        const cy2 = vineLen * 0.65;
+        const endX = startX + drift;
+        const endY = vineLen;
+
+        // #6 — depth layering: ~35% of strands are "background" at reduced opacity
+        const isBackground = r(0, 1) < 0.35;
+        const depthOpacity = isBackground ? (0.38 + r(0, 0.18)).toFixed(2) : (0.82 + r(0, 0.18)).toFixed(2);
+
+        const strandG = el('g', {
+          class: 'vine-strand',
+          opacity: depthOpacity
+        });
+        // Store spring params as data attrs for JS physics loop
+        strandG.dataset.startX = startX.toFixed(1);
+        strandG.dataset.delay = delay;
+        strandG.dataset.dur = dur;
+        strandG.dataset.swayAmp = swayAmp;
+        strandG.dataset.swayDur = swayDur;
+
+        // Main stem path
+        const stem = el('path', {
+          d: `M${startX.toFixed(1)},0 C${cx1.toFixed(1)},${cy1.toFixed(1)} ${cx2.toFixed(1)},${cy2.toFixed(1)} ${endX.toFixed(1)},${endY.toFixed(1)}`,
+          fill: 'none',
+          stroke: sc,
+          'stroke-width': sw,
+          'stroke-linecap': 'round'
+        });
+        strandG.appendChild(stem);
+
+        // Dense leaf pairs along the full length — every ~10-16px
+        const LEAF_SPACING = r(10, 16);
+        const steps = Math.floor(vineLen / LEAF_SPACING);
+        for (let s = 1; s <= steps; s++) {
+          const t = s / steps;
+          const lx = bez(startX, cx1, cx2, endX, t);
+          const ly = bez(0, cy1, cy2, endY, t);
+          const angle = bezAngle(startX, cx1, cx2, endX, 0, cy1, cy2, endY, t);
+          const leafSize = r(4.5, 8.5);
+          const lc2 = leafPalette[(idx + s) % leafPalette.length];
+          strandG.appendChild(leafPair(lx, ly, angle, leafSize, lc2));
+        }
+
+        // 1-2 sub-branches on longer vines
+        if (vineLen > VH * 0.6) {
+          const numBranches = Math.floor(r(1, 3));
+          for (let b = 0; b < numBranches; b++) {
+            const bt = r(0.2, 0.7);
+            const bx0 = bez(startX, cx1, cx2, endX, bt);
+            const by0 = bez(0, cy1, cy2, endY, bt);
+            const bAngle = bezAngle(startX, cx1, cx2, endX, 0, cy1, cy2, endY, bt);
+            const bSide = b % 2 === 0 ? 1 : -1;
+            const bLen = r(40, 100);
+            const bRad = (bAngle + bSide * r(40, 70)) * Math.PI / 180;
+            const bx1 = bx0 + Math.cos(bRad) * bLen;
+            const by1 = by0 + Math.sin(bRad) * bLen;
+            const bcx = bx0 + Math.cos(bRad) * bLen * 0.5 + r(-10,10);
+            const bcy = by0 + Math.sin(bRad) * bLen * 0.5 + r(-10,10);
+
+            const branch = el('path', {
+              d: `M${bx0.toFixed(1)},${by0.toFixed(1)} Q${bcx.toFixed(1)},${bcy.toFixed(1)} ${bx1.toFixed(1)},${by1.toFixed(1)}`,
+              fill: 'none',
+              stroke: sc,
+              'stroke-width': (parseFloat(sw) * 0.6).toFixed(1),
+              'stroke-linecap': 'round',
+              opacity: '0.8'
+            });
+            strandG.appendChild(branch);
+
+            // Leaves on branch
+            const bSteps = Math.floor(bLen / 12);
+            for (let bs = 1; bs <= bSteps; bs++) {
+              const bt2 = bs / bSteps;
+              const blx = bx0 + (bx1-bx0)*bt2*bt2 + bcx*(2*bt2*(1-bt2));
+              const bly = by0 + (by1-by0)*bt2*bt2 + bcy*(2*bt2*(1-bt2));
+              const blAngle = bAngle + bSide * r(30,70);
+              strandG.appendChild(leafPair(blx, bly, blAngle, r(3.5, 6), leafPalette[(idx+bs)%leafPalette.length]));
+            }
+          }
+        }
+
+        svg.appendChild(strandG);
+      });
+
+      /* ── JS SPRING PHYSICS for vine drop + sway ── */
+      // Runs one rAF loop that drives ALL strands. Avoids CSS animation conflicts entirely.
+      const strands = Array.from(svg.querySelectorAll('.vine-strand'));
+      // Hide all strands immediately before first tick
+      strands.forEach(g => { g.style.transform = 'scaleY(0)'; });
+
+      const states = strands.map(g => ({
+        el: g,
+        startX: parseFloat(g.dataset.startX),
+        delay: parseFloat(g.dataset.delay),       // seconds before drop starts
+        dur: parseFloat(g.dataset.dur),            // characteristic drop time (used to scale stiffness)
+        swayAmp: parseFloat(g.dataset.swayAmp),   // degrees sway amplitude
+        swayDur: parseFloat(g.dataset.swayDur),   // seconds per half-cycle of sway
+
+        // Spring state (scaleY: 0→1)
+        pos: 0,     // current scaleY
+        vel: 0,     // velocity
+
+        settled: false,
+        swayPhase: Math.random() * Math.PI * 2  // random start phase for sway
+      }));
+
+      // Spring constants — higher stiffness = snappier; tune here
+      const STIFFNESS = 160;
+      const DAMPING   = 14;
+
+      let lastTime = null;
+
+      function tick(now) {
+        if (!lastTime) lastTime = now;
+        const dtRaw = (now - lastTime) / 1000;  // seconds
+        lastTime = now;
+        const dt = Math.min(dtRaw, 0.05);       // clamp large dt (tab inactive etc.)
+        const t = now / 1000;                    // absolute time in seconds
+
+        let anyActive = false;
+
+        states.forEach(s => {
+          if (t < s.delay) {
+            // Not yet started — already hidden via scaleY(0) set on init
+            anyActive = true;
+            return;
+          }
+
+          if (!s.settled) {
+            // Spring physics toward target=1
+            const force = STIFFNESS * (1 - s.pos) - DAMPING * s.vel;
+            s.vel += force * dt;
+            s.pos += s.vel * dt;
+
+            // Settle check
+            if (Math.abs(s.pos - 1) < 0.001 && Math.abs(s.vel) < 0.001) {
+              s.pos = 1;
+              s.vel = 0;
+              s.settled = true;
+            }
+            anyActive = true;
+          }
+
+          // Combine scaleY (spring) + rotate (sway) in one CSS transform
+          // transform-origin: 50% 0% (top-center) from CSS handles correct pivot
+          let rot = 0;
+          if (s.settled) {
+            const settleT = t - s.delay;
+            rot = s.swayAmp * Math.sin((2 * Math.PI / (s.swayDur * 2)) * settleT + s.swayPhase);
+          }
+
+          // Use CSS transform via .style — overrides nothing, CSS already set transform-box/origin
+          s.el.style.transform = `scaleY(${s.pos.toFixed(4)}) rotate(${rot.toFixed(3)}deg)`;
+        });
+
+        // Keep loop running (sway is perpetual)
+        requestAnimationFrame(tick);
+      }
+
+      requestAnimationFrame(tick);
+
+    })();
+  </script>
+</body>
+</html>
